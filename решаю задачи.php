@@ -13,16 +13,17 @@ if($a > $b)
 
 
 //Перепишите задачу №3 в одно условие if используя тернарный оператор
-$result = ($a > $b) ? ($a > $c) : ($b > $c);
+//$result = (bool) ($a > $b) ? ($a > $c) : ($b > $c);
 
-//сделать вывод цифр от 3 до 10. А после 10 выводится 15 - 20
-for ($q = 1; $q <=20; ++$q)
+//Вывести цифры от 3 до 10. А после 10 выводится 15 - 20
+for($i = 3; $i <= 20; $i++)
 {
-    if ($q > 2 && $q < 11 || $q > 14 && $q < 21)    {
-        echo $q . '<br>';
+    if ($i >= 10 && $i <= 15)
+    {
+      continue;
     }
+    echo $i;
 }
-echo "<br>";
 
 
 
@@ -264,8 +265,8 @@ echo '<hr>';
 
 
 
-//получение чисел фибоначчи
-$result = (stirng);
+//получение чисел fibonacci
+$result = '';
 $fib = 0;
 $num1 = 0;
 $num2 = 1;
@@ -283,7 +284,7 @@ echo '<hr>';
 
 
 
-//Дана строка с целыми числами. С помощью регулярки преобразуйте строку так, чтобы вместо этих чисел стояли их квадраты.
+//Дана строка с целыми числами. С помощью регулярного выражения преобразуйте строку так, чтобы вместо этих чисел стояли их квадраты.
 $str = '2 3 3 5 7 8';
 
 $res = preg_replace_callback('~\d{1}? ~', function($matches){ //используем анонимную функцию для суммирования и вывода аргуметов в строке
@@ -408,3 +409,49 @@ function getCounts($str) {
     return $vowelsCount;
 }
 echo getCounts($str);
+
+
+
+
+/* Строку такого формата:
+"the-stealth-warrior" конвертировать в такой формат: "theStealthWarrior"    (первый символ в нижнем регистре - значит первый символ в результате - в нижнем регистре)
+"The_Stealth_Warrior" конвертировать в такой формат: "TheStealthWarrior"    (первый символ в верхнем регистре - значит первый символ в результате - в верхнем регистре)
+ */
+function toCamelCase($str){
+    $result = '';
+    if(preg_match('~[A-Z]~', $str[0])){
+        if(preg_match('~[_]~', $str)){
+            $arr = explode('_', $str);
+            foreach ($arr as $value) {
+                $value = ucwords($value);
+                $result .= $value;
+            }
+        }
+        else{
+            $arr = explode('-', $str);
+            foreach ($arr as $value) {
+                $value = ucwords($value);
+                $result .= $value;
+            }
+        }
+    }
+    else{
+        if(preg_match('~[_]~', $str)){
+            $arr = explode('_', $str);
+            foreach ($arr as $value) {
+                $value = ucwords($value);
+                $result .= $value;
+            }
+            $result = lcfirst($result);
+        }
+        else{
+            $arr = explode('-', $str);
+            foreach ($arr as $value) {
+                $value = ucwords($value);
+                $result .= $value;
+            }
+            $result = lcfirst($result);
+        }
+    }
+    return $result;
+}
